@@ -20,3 +20,5 @@ Route::get('/', [
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
+
+Route::get('/about' ,'hello world');
