@@ -40,7 +40,22 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Be right back.</div>
+                @if (count($errors) > 0)
+    <!-- Form Error List -->
+            <div class="alert alert-danger">
+                <strong>Whoops! Something went wrong!</strong>
+
+                <br><br>
+
+                <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+                </ul>
+            </div>
+        @endif
+                        
+            <div class="title">Be right back.</div>
             </div>
         </div>
     </body>

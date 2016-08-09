@@ -10,15 +10,30 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+use App\product;
+use Illuminate\Http\Request;
 
-Route::get('/', [
-	'uses' => 'ProductController@getIndex',
-	'as' => 'shop.index'
-]);
+Route::group(['middleware'=>'web'],function(){
+	Route::auth();
+	
+	Route::get('/', [
+		'uses' => 'adminController@getProduct',
+		'as' => 'shop.index'
+	]);
 
+	
+	Route::get('deleteProducts/{id}','adminController@delete');
+	Route::get('home', 'HomeController@index');
+});
 
-Route::auth();
+	Route::get('admin', 'adminController@getIndex')->middleware('isAdmin');
+	Route::get('form', 'adminController@addProducts')->middleware('isAdmin');
+	Route::post('store','adminController@store'
+	)->middleware('isAdmin');
 
-Route::get('/home', 'HomeController@index');
+	Route::post('update', 'adminController@update');
+	Route::get('deleteProducts/{id}', 'adminController@delete');
 
-Route::get('/about' ,'hello world');
+	Route::get('editProducts/{id}', 'adminController@edit');
+
+	
